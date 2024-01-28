@@ -1,0 +1,22 @@
+<% $track_info =  track_info %>
+
+<div class="container" >
+
+	<div class="row">
+	  <div class="col-sm-3">
+      <img src="<%= $track_info.img_link %>" class="img-rounded" alt="Image not available" width="240" height="220"> 
+    </div>
+    <div class="col-sm-7">
+      <h1><%= $track_info.name %></h1>
+      <h3>Album: <%= $track_info.album %></h3>
+      <h4>Artist: <%= $track_info.artist %></h4>
+    </div>
+	</div>
+	
+  <h3>About</h3>
+  <% if $track_info.wiki.length>0 %>
+    <div class="span6" ><%=  $track_info.wiki %> </div>
+  <% else %>
+    <div class="span6" ><p>"Not available"</p> </div>
+  <% end %>
+</div>

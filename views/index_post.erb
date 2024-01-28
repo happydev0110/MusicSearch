@@ -1,0 +1,77 @@
+<div class="container" style="padding-top:100px;padding-bottom:60px">
+  
+  <form role="form" action="/search/" method="post">
+    <div class="row">
+      <div class="col-xs-10 col-sm-10">
+        <div class="form-group">
+          <input type="text" class="form-control" name="search_key" required="true">
+        </div>  
+      </div>
+      <div class="col-xs-2 col-sm-2">
+        <button type="submit" class="btn btn-primary" name="search">Search</button>
+      </div>
+    </div>
+  </form>
+
+  <% 
+  $artist_list = artist_list
+  $album_list = album_list
+  $track_list = track_list
+  %>
+
+  <div class="row">
+    <h1>Artists</h1>
+    <% if $artist_list.length != 0  %>
+      <% $artist_list.each do |x| %>
+        <div class="col-sm-3">
+        <img src="<%= x.img_link %>" class="img-rounded" alt="No image available" width="182" height="160">
+        <% if x.mbid.length > 0 %>
+          <h5><a href="/artist?mbid=<%= x.mbid %>" >
+          <%=  x.name %></a></h5>
+        <% else %>
+          <h5><%=  x.name %></h5>
+        <% end %>
+      </div>
+      <%  end  %>
+    <% else %>
+      <div class="col-sm-12">
+        <p> Oops! No results match your search </p>
+      </div>
+    <% end %>
+  </div>
+    
+  <div class="row">
+    <h1>Albums</h1>
+    <% if $album_list.length != 0 %>
+      <% $album_list.each do |x| %>
+        <div class="col-sm-3">
+          <img src="<%= x.img_link %>" class="img-rounded" alt="No image available" width="182" height="160">
+          <% url = URI.encode("/album?name="+ x.name + "&artist=" + x.artist+"&id="+x.id ) %>
+          <h5><a href=" <%=  url %> ">
+          <%=  x.name %></a></h5>
+        </div>
+      <%  end  %>
+    <% else %>
+      <div class="col-sm-12">
+        <p> Oops! No results match your search </p>
+      </div>
+    <% end %>
+  </div>
+      
+  <div class="row">
+    <h1>Tracks</h1>
+    <% if $track_list.length != 0  %>
+      <% $track_list.each do |x| %>
+        <div class="col-sm-3">
+          <img src="<%= x.img_link %>" class="img-rounded" alt="No image available" width="182" height="160">
+          <% url = URI.encode("/track?name="+ x.name + "&artist="+ x.artist+"&id="+x.id ) %>
+          <h5><a href= "<%=  url %>" > <%=  x.name %> </a></h5>
+        </div>
+      <%  end  %>
+    <% else %>
+      <div class="col-sm-12">
+        <p> Oops! No results match your search </p>
+      </div> 
+    <% end %>
+  </div>
+</div>

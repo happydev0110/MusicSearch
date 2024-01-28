@@ -1,0 +1,41 @@
+<div class="container">
+	<% 
+    $artist_info = artist_info
+  	$artist_album = artist_albums
+  	$artist_track = artist_tracks
+	%>
+	
+  <div class="row">
+		<div class="col-sm-3">
+     	<img src="<%= $artist_info.img_link %>" class="img-rounded" alt="Not available" width="240" height="165">
+    </div>
+    <div class="col-sm-7">
+     	<h1><%= $artist_info.name %></h1>
+     	<p><%= $artist_info.wiki %></p>
+		</div>
+	</div>
+	
+  <div class="row">
+    <h2>Top tracks</h2>
+	  <% $artist_track.each do |x| %>
+  		<div class="col-sm-3">
+     		<img src="<%= x.img_link %>" class="img-rounded" alt="Not available" width="182" height="160">
+        <% url = URI.encode("/track?name="+x.name+"&artist="+x.artist+"&id="+x.id) %>
+     		<h5><a href= "<%= url %>" > <%=  x.name %></a></h5>
+     	</div>
+   	<%  end  %>
+  </div>
+
+  <div class="row">
+	  <h2>Top albums</h2>
+  	<% $artist_album.each do |x| %>
+  		<div class="col-sm-3">
+        <img src="<%= x.img_link %>" class="img-rounded" alt="No image available" width="182" height="160">
+        <% url = URI.encode("/album?name="+ x.name + "&artist=" + x.artist + "&id=" + x.id) %>
+        <h5><a href= "<%= url %>" >
+          <%=  x.name %></a></h5>
+        </div>
+    <%  end  %>
+  </div>
+
+</div>
